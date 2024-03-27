@@ -1,15 +1,32 @@
+using Microsoft.EntityFrameworkCore;
+using RinhaBackEnd2023.Application.UseCases;
+using RinhaBackEnd2023.Domain.Data;
+using RinhaBackEnd2023.Domain.UseCases.CreatePessoa;
+using RinhaBackEnd2023.Infrastructure;
+using RinhaBackEnd2023.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+string connectionStringMySql = builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new Exception("Connection string was not found.");
+builder.Services.AddDbContext<DatabaseContext>(opt =>
+    opt.UseMySql(connectionStringMySql, ServerVersion.AutoDetect(connectionStringMySql)));
+
+builder.Services
+    .AddScoped<IPessoaData, PessoaData>()
+    .AddScoped<ICreatePessoa, CreatePessoa>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+IServiceScope scope = app.Services.CreateScope();
+DatabaseContext context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+await context.Database.MigrateAsync();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
