@@ -13,4 +13,9 @@ public class PessoaData(DatabaseContext context) : IPessoaData
 
         return pessoaEntity.Id;
     }
+
+    public async Task<IEnumerable<string>> GetAllApelidosAsync()
+    {
+        return await context.Pessoas.Select(x => x.Apelido.Value).ToArrayAsync();
+    }
 }

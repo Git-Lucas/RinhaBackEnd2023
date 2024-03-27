@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using RinhaBackEnd2023.Application.Exceptions;
 using RinhaBackEnd2023.Application.UseCases;
 using RinhaBackEnd2023.Domain.Data;
 using RinhaBackEnd2023.Domain.UseCases.CreatePessoa;
@@ -7,6 +8,7 @@ using RinhaBackEnd2023.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -20,6 +22,8 @@ builder.Services.AddDbContext<DatabaseContext>(opt =>
 builder.Services
     .AddScoped<IPessoaData, PessoaData>()
     .AddScoped<ICreatePessoa, CreatePessoa>();
+
+builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
 
 var app = builder.Build();
 
