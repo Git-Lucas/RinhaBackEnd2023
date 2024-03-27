@@ -6,4 +6,5 @@ public interface IPessoaData
 {
     Task<Guid> CreateAsync(Pessoa pessoaEntity);
     Task<IEnumerable<string>> GetAllApelidosAsync();
+    Task<Pessoa> GetByIdAsync(Guid id);
 }

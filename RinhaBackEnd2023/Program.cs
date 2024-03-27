@@ -3,6 +3,7 @@ using RinhaBackEnd2023.Application.Exceptions;
 using RinhaBackEnd2023.Application.UseCases;
 using RinhaBackEnd2023.Domain.Data;
 using RinhaBackEnd2023.Domain.UseCases.CreatePessoa;
+using RinhaBackEnd2023.Domain.UseCases.Interfaces;
 using RinhaBackEnd2023.Infrastructure;
 using RinhaBackEnd2023.Infrastructure.Repositories;
 
@@ -21,7 +22,8 @@ builder.Services.AddDbContext<DatabaseContext>(opt =>
 
 builder.Services
     .AddScoped<IPessoaData, PessoaData>()
-    .AddScoped<ICreatePessoa, CreatePessoa>();
+    .AddScoped<ICreatePessoa, CreatePessoa>()
+    .AddScoped<IGetPessoa, GetPessoa>();
 
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
 
