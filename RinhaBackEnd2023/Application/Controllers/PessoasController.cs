@@ -1,23 +1,29 @@
 using Microsoft.AspNetCore.Mvc;
+using RinhaBackEnd2023.Domain.Entities;
 using RinhaBackEnd2023.Domain.UseCases.CreatePessoa;
 using RinhaBackEnd2023.Domain.UseCases.DTOs;
+using RinhaBackEnd2023.Domain.UseCases.Interfaces;
 
 namespace RinhaBackEnd2023.Application.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class PessoasController(ICreatePessoa createPessoa) : ControllerBase
+public class PessoasController(ICreatePessoa createPessoa,
+                               IGetPessoa getPessoa,
+                               IGetPessoas getPessoas) : ControllerBase
 {
-    [HttpGet("{id:int}")]
+    [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id) 
     {
-        return Ok();
+        Pessoa pessoa = await getPessoa.ExecuteAsync(id);
+        return Ok(pessoa);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetAllAsync()
+    [HttpGet("{termoDeBusca}")]
+    public async Task<IActionResult> GetAllAsync([FromRoute] string termoDeBusca)
     {
-        return Ok();
+        IEnumerable<Pessoa> pessoas = await getPessoas.ExecuteAsync(termoDeBusca);
+        return Ok(pessoas);
     }
 
     [HttpPost]
