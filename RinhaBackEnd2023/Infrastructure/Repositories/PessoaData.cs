@@ -20,6 +20,17 @@ public class PessoaData(DatabaseContext context) : IPessoaData
         return await context.Pessoas.Select(x => x.Apelido.Value).ToArrayAsync();
     }
 
+    public async Task<IEnumerable<Pessoa>> GetAllAsync(string termoDeBusca)
+    {
+        return await context.Pessoas
+            .Where(p => EF.Functions.Like(p.Id, $"%{termoDeBusca}%"))
+            //.Where(p => EF.Functions.Like(p.Apelido, $"%{termoDeBusca}%") ||
+            //            EF.Functions.Like(p.Nome, $"%{termoDeBusca}%"))
+            //            (p.Stack != null && p.Stack.Any(s => EF.Functions.Like(s, $"%{termoDeBusca}%"))))
+            .Take(50)
+            .ToListAsync();
+    }
+
     public async Task<Pessoa> GetByIdAsync(Guid id)
     {
         return await context.Pessoas.FirstOrDefaultAsync(x => x.Id == id)

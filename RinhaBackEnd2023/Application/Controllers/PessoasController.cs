@@ -9,7 +9,8 @@ namespace RinhaBackEnd2023.Application.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class PessoasController(ICreatePessoa createPessoa,
-                               IGetPessoa getPessoa) : ControllerBase
+                               IGetPessoa getPessoa,
+                               IGetPessoas getPessoas) : ControllerBase
 {
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id) 
@@ -18,10 +19,11 @@ public class PessoasController(ICreatePessoa createPessoa,
         return Ok(pessoa);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetAllAsync()
+    [HttpGet("{termoDeBusca}")]
+    public async Task<IActionResult> GetAllAsync([FromRoute] string termoDeBusca)
     {
-        return Ok();
+        IEnumerable<Pessoa> pessoas = await getPessoas.ExecuteAsync(termoDeBusca);
+        return Ok(pessoas);
     }
 
     [HttpPost]

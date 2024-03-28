@@ -23,7 +23,8 @@ builder.Services.AddDbContext<DatabaseContext>(opt =>
 builder.Services
     .AddScoped<IPessoaData, PessoaData>()
     .AddScoped<ICreatePessoa, CreatePessoa>()
-    .AddScoped<IGetPessoa, GetPessoa>();
+    .AddScoped<IGetPessoa, GetPessoa>()
+    .AddScoped<IGetPessoas, GetPessoas>();
 
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
 
