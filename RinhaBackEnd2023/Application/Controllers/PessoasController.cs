@@ -19,8 +19,8 @@ public class PessoasController(ICreatePessoa createPessoa,
         return Ok(pessoa);
     }
 
-    [HttpGet("{termoDeBusca}")]
-    public async Task<IActionResult> GetAllAsync([FromRoute] string termoDeBusca)
+    [HttpGet]
+    public async Task<IActionResult> GetAllAsync([FromQuery] string termoDeBusca)
     {
         IEnumerable<Pessoa> pessoas = await getPessoas.ExecuteAsync(termoDeBusca);
         return Ok(pessoas);

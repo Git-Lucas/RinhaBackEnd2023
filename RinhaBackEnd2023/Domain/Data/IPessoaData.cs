@@ -4,7 +4,7 @@ namespace RinhaBackEnd2023.Domain.Data;
 
 public interface IPessoaData
 {
-    Task<Guid> CreateAsync(Pessoa pessoaEntity);
+    Task<Guid> CreateAsync(Pessoa pessoa);
     Task<IEnumerable<string>> GetAllApelidosAsync();
     Task<IEnumerable<Pessoa>> GetAllAsync(string termoDeBusca);
     Task<Pessoa> GetByIdAsync(Guid id);
