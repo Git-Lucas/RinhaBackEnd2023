@@ -2,8 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using RinhaBackEnd2023.Application.Exceptions;
 using RinhaBackEnd2023.Application.UseCases;
 using RinhaBackEnd2023.Domain.Data;
-using RinhaBackEnd2023.Domain.UseCases.CreatePessoa;
-using RinhaBackEnd2023.Domain.UseCases.Interfaces;
 using RinhaBackEnd2023.Infrastructure;
 using RinhaBackEnd2023.Infrastructure.Repositories;
 

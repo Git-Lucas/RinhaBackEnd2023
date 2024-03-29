@@ -1,6 +1,6 @@
 ﻿using RinhaBackEnd2023.Domain.UseCases.DTOs;
 
-namespace RinhaBackEnd2023.Domain.UseCases.CreatePessoa;
+namespace RinhaBackEnd2023.Application.UseCases;
 
 public interface ICreatePessoa
 {

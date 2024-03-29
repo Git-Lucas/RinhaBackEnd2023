@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using RinhaBackEnd2023.Application.UseCases;
 using RinhaBackEnd2023.Domain.Entities;
-using RinhaBackEnd2023.Domain.UseCases.CreatePessoa;
 using RinhaBackEnd2023.Domain.UseCases.DTOs;
-using RinhaBackEnd2023.Domain.UseCases.Interfaces;
 
 namespace RinhaBackEnd2023.Application.Controllers;
 
