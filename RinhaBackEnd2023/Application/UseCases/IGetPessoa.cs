@@ -1,6 +1,6 @@
 ﻿using RinhaBackEnd2023.Domain.Entities;
 
-namespace RinhaBackEnd2023.Domain.UseCases.Interfaces;
+namespace RinhaBackEnd2023.Application.UseCases;
 
 public interface IGetPessoa
 {

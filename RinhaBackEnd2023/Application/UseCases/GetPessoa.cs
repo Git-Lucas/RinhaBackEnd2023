@@ -1,6 +1,5 @@
 ﻿using RinhaBackEnd2023.Domain.Data;
 using RinhaBackEnd2023.Domain.Entities;
-using RinhaBackEnd2023.Domain.UseCases.Interfaces;
 
 namespace RinhaBackEnd2023.Application.UseCases;
 

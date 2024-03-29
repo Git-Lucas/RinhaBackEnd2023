@@ -22,18 +22,23 @@ public class PessoaData(DatabaseContext context) : IPessoaData
 
     public async Task<IEnumerable<Pessoa>> GetAllAsync(string termoDeBusca)
     {
-        return await context.Pessoas
-            .Where(p => EF.Functions.Like(p.Id, $"%{termoDeBusca}%"))
-            //.Where(p => EF.Functions.Like(p.Apelido, $"%{termoDeBusca}%") ||
-            //            EF.Functions.Like(p.Nome, $"%{termoDeBusca}%"))
-            //            (p.Stack != null && p.Stack.Any(s => EF.Functions.Like(s, $"%{termoDeBusca}%"))))
+        List<Pessoa> pessoas = await context.Pessoas
             .Take(50)
             .ToListAsync();
+
+        return pessoas.Where(p => p.Nome.Value.Contains(termoDeBusca, StringComparison.OrdinalIgnoreCase) ||
+                                  p.Apelido.Value.Contains(termoDeBusca, StringComparison.OrdinalIgnoreCase) ||
+                                  p.Stack != null && p.Stack.Values.Any(s => s.Contains(termoDeBusca, StringComparison.OrdinalIgnoreCase)));
     }
 
     public async Task<Pessoa> GetByIdAsync(Guid id)
     {
         return await context.Pessoas.FirstOrDefaultAsync(x => x.Id == id)
             ?? throw new RepositoryException(RepositoryExceptionType.EmptyReturn, $"Não foi encontrada uma {nameof(Pessoa)} com este identificador.");
+    }
+
+    public async Task<int> CountAsync()
+    {
+        return await context.Pessoas.CountAsync();
     }
 }
