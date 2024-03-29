@@ -22,7 +22,8 @@ builder.Services
     .AddScoped<IPessoaData, PessoaData>()
     .AddScoped<ICreatePessoa, CreatePessoa>()
     .AddScoped<IGetPessoa, GetPessoa>()
-    .AddScoped<IGetPessoas, GetPessoas>();
+    .AddScoped<IGetPessoas, GetPessoas>()
+    .AddScoped<ICountPessoas, CountPessoas>();
 
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
 

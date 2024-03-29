@@ -36,4 +36,9 @@ public class PessoaData(DatabaseContext context) : IPessoaData
         return await context.Pessoas.FirstOrDefaultAsync(x => x.Id == id)
             ?? throw new RepositoryException(RepositoryExceptionType.EmptyReturn, $"Não foi encontrada uma {nameof(Pessoa)} com este identificador.");
     }
+
+    public async Task<int> CountAsync()
+    {
+        return await context.Pessoas.CountAsync();
+    }
 }
